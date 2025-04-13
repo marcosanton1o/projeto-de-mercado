@@ -36,7 +36,7 @@ Route::get('/admin_post', function () {
 
     Route::middleware(['auth', 'verified', 'Admin_postmiddleware'])->group(function () {
 
-        Route::get('/admin_post', [Admin_postController::class, 'index'])->name('admin_post');
+        Route::get('/admin_post', [Admin_postController::class, 'index'])->name('admin_postindex');
 
         Route::get('/admin_post/users', [Admin_postController::class, 'users'])->name('admin.post');
 
@@ -128,6 +128,18 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/postos', [PostoController::class, 'index'])->name('postoindex');
+
+    Route::get('/postos/{corrida}', [PostoController::class, 'show'])->name('postoshow');
+
+    Route::get('/posto/create', [PostoController::class, 'create'])->name('postocreate');
+
+    Route::post('/postos', [PostoController::class, 'store'])->name('postostore');
+
+    Route::get('/posto/{posto}/edit', [PostoController::class, 'edit'])->name('postoedit');
+
+    Route::put('/posto/{post}', [PostoController::class, 'update'])->name('postoupdate');
+
+    Route::delete('/postos/{corrida}', [PostoController::class, 'destroy'])->name('postodelete');
 
 });
 require __DIR__.'/auth.php';

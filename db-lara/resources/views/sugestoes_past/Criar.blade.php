@@ -13,15 +13,13 @@
             @csrf
 
         <div>
-            <x-input-label for="name" class="text-white" :value="__('Título')" />
-            <x-text-input id="titulo" class="block mt-1 w-full" type="text" name="titulo"  required />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
         </div>
 
         <div class="mt-4">
             <x-input-label for="email" class="text-white" :value="__('Descrição')" />
-            <x-text-input id="descricao" class="block mt-1 w-full" type="text" name="descricao" required  />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-text-input id="descricao" class="block mt-1 w-full" type="text" name="descricao"/>
+            <x-input-error :messages="$errors->get('descricao')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
