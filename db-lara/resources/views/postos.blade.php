@@ -171,9 +171,6 @@ $cargo = Auth::user()->cargo;
   <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    ID:
-                </th>
-                <th scope="col" class="px-6 py-3">
                     Estado:
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -194,7 +191,7 @@ $cargo = Auth::user()->cargo;
             </tr>
         </thead>
 
-        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
             Criar posto
           </button>
 
@@ -216,23 +213,31 @@ $cargo = Auth::user()->cargo;
                         <form class="p-4 md:p-5" action="{{ route('postostore')}}" method="post">
                              @csrf
                             <div class="grid gap-4 my-4 mx-3 grid-cols-2">
-                            <div class="col-span-2">
-                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+                            <div class="col-span-2 sm:col-span-1">
+                                <x-input-label for="cidade" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" :value="__('Cidade')"/>
+                                <x-text-input id="cidaded" class="block mt-1 w-full" type="text" name="local_cidade" />
+                                <x-input-error :messages="$errors->get('local_cidade')" class="mt-2" />
                             </div>
                             <div class="col-span-2 sm:col-span-1">
-                                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
+                                <x-input-label for="numero_tel_posto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" :value="__('Número de telefone do posto')"/>
+                                <x-text-input id="numero_tel_posto" class="block mt-1 w-full" type="text" name="numero_tel_posto" />
+                                <x-input-error :messages="$errors->get('numero_tel_posto')" class="mt-2" />
                             </div>
-                            <div class="col-span-2">
-                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-                                <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here"></textarea>
+                            <div class="col-span-2 sm:col-span-1">
+                                <x-input-label for="estado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" :value="__('Estado')"/>
+                                <x-text-input id="estado" class="block mt-1 w-full" type="text" name="lestado" />
+                                <x-input-error :messages="$errors->get('local_estado')" class="mt-2" />
                             </div>
-                            <button type="submit" class="mb-3 text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                Adicionar posto
-                            </button>
+                            <div class="col-span-2 sm:col-span-1">
+                                <x-input-label for="cep" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" :value="__('CEP')"/>
+                                <x-text-input id="cep" class="block mt-1 w-full" type="text" name="cep" />
+                                <x-input-error :messages="$errors->get('cep')" class="mt-2" />
+                            </div>
                         </div>
+                        <button type="submit" class="mb-3 mx-3 text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                            Adicionar posto
+                        </button>
                     </form>
                 </div>
             </div>
@@ -243,9 +248,6 @@ $cargo = Auth::user()->cargo;
 
                 <td colspan="5" class="px-6 text-center py-4">
                     <tr class="bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $posto->id_posto }}
-                        </th>
                         <td class="px-6 py-4">
                             {{ $posto->local_cidade }}
                         </td>
