@@ -21,11 +21,13 @@ class StorePostoRequest extends FormRequest
      */
     public function rules(): array
 {
-    return [
+    $rules = [
         'local_cidade' => 'required|string|max:100',
         'numero_tel_posto' => 'required|string|max:30',
         'local_estado' => 'required|string|max:45',
         'cep' => 'required|string|max:8',
     ];
+
+    return $rules;
 }
 }

@@ -21,9 +21,16 @@ class PostoController extends Controller
     {
         $postos = $this->posto->all();
 
+        $postoId = $postos->first()->id ?? null;
+
+        $userController = new UserController();
+
+        $users = $userController->index($postoId)->getData()['users'];
 
 return view('postos', [
     'postos' => $postos,
+
+    'users' => $users
 ]);
 
     }

@@ -53,13 +53,7 @@ class CorridaController extends Controller
 
 public function update(Request $request, $id)
 {
-    $validated = $request->validate([
-        'id_posto' => 'required|string|max:30',
-        'local_cidade' => 'required|string|max:250',
-        'numero_tel_posto' => 'required|string|max:250',
-        'local_estado' => 'required|string|max:250',
-        'cep' => 'required|string|min:8|max:15',
-    ]);
+
     $updated=$this->corrida->where('id_registro_corrida',$id)->update($request->except(['_token','_method']));
 
     return redirect()->route('corridaindex')->with('editado', 'm');

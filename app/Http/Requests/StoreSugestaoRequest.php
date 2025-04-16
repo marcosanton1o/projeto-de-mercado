@@ -21,8 +21,12 @@ class StoreSugestaoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+            $rules = [
+                'titulo' => 'required|string|max:100',
+                'descricao' => 'required|string|max:30',
+            ];
+
+            return $rules;
+
     }
 }
