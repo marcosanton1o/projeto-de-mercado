@@ -14,16 +14,20 @@
             <input type="hidden" name="_method" value="PUT">
         <div>
             <x-input-label for="name" class="text-white" :value="__('Nome do cliente')" />
-            <x-text-input id="nome_cliente" class="block mt-1 w-full" type="text" name="nome_cliente"  required />
+            <x-text-input id="nome_cliente" class="block mt-1 w-full" type="text" name="nome_cliente"/>
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <div class="mt-4">
             <x-input-label for="email" class="text-white" :value="__('Preço')" />
-            <x-text-input id="preco" class="block mt-1 w-full" type="number" name="preco" required  />
+            <x-text-input id="preco" class="block mt-1 w-full" type="number" name="preco" />
             <x-input-error :messages="$errors->get('preco')" class="mt-2" />
         </div>
-
+        <div class="mt-4">
+            <x-input-label for="number" class="text-white" :value="__('Data')" />
+            <input type="date" id="data" placeholder="John Doe" name="data" :value="old('data')" required autocomplete="username" class="block mt-1 w-full"/>
+            <x-input-error :messages="$errors->get('data')" class="mt-2" />
+        </div>
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-white hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('corridaindex') }}">
                 {{ __('Gostaria de voltar?') }}

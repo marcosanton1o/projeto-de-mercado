@@ -45,7 +45,7 @@ $cargo = Auth::user()->cargo;
                             <tr class="bg-white">
                                 <td class="px-6 py-4">{{ $corrida->nome_cliente }}</td>
                                 <td class="px-6 py-4">{{ $corrida->preco }}</td>
-                                <td class="px-6 py-4">{{ $corrida->created_at->format('d/m/Y H:i') }}</td>
+                                <td class="px-6 py-4">{{ $corrida->data }}</td>
                                 <td class="px-6 py-4">
                                     <a href="{{ route('corridaedit', ['corrida' => $corrida->id_registro_corrida]) }}">
                                         <svg class="h-8 w-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

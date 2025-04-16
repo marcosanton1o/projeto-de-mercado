@@ -22,8 +22,10 @@ class StoreCorridaRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'nome_cliente' => ['required', 'string', 'max:255'],
-            'data' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'nome_cliente' => 'required|string|max:255',
+            'data' => 'required|date',
+            'preco'=> 'required|numeric',
+
         ];
 
         return $rules;

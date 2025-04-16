@@ -71,7 +71,7 @@ return view('postos', [
 
         $atualizar = $this->posto->where('id_posto', $id)->update($request->except(['_token', '_method']));
         if ($atualizar) {
-            return redirect()->back()->with('Algo deu errado, verifique a página que está .');
+            return redirect()->back()->with('editado');
         }
 
     }

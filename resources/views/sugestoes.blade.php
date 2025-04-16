@@ -52,9 +52,7 @@ $cargo = Auth::user()->cargo;
         @endif
 
             <table class="w-full min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <a href="{{ route('sugestaocreate') }}" class="inline-block px-6 py-2 mb-3 text-white bg-sky-800 hover:bg-blue-700 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    Adicionar sugestao
-                </a>
+
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">Título:</th>

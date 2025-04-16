@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Corrida;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Requests\StoreCorridaRequest;
 
 class CorridaController extends Controller
 {
@@ -29,13 +30,13 @@ class CorridaController extends Controller
     return view('corridas_past.Criar');
 
     }
-    public function store(Request $request)
+    public function store(StoreCorridaRequest $request)
     {
-        $created = $this->corrida->create([
+        Corrida::create([
             'corrida_user' => Auth::id(),
-            'preco' => $request->input('preco'),
-            'data' => $request->input('data'),
             'nome_cliente' => $request->input('nome_cliente'),
+            'data' => $request->input('data'),
+            'preco' => $request->input('preco'),
         ]);
 
         return redirect()->route('corridaindex')->with('criado', 'im');

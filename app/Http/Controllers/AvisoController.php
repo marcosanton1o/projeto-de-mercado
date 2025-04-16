@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Aviso;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreAvisoRequest;
 use App\Http\Controllers\UserController;
 
 class AvisoController extends Controller
@@ -31,15 +32,20 @@ class AvisoController extends Controller
     return view('aviso_past.Criar');
 
     }
-    public function store(Request $request)
+    public function store(StoreAvisoRequest $request)
     {
+
         $created = $this->aviso->create([
             'titulo' => $request->input('titulo'),
             'conteudo' => $request->input('conteudo'),
             'user_id' => Auth::id(),
         ]);
-
+if($created){
         return redirect()->route('avisoindex')->with('criado', 'mu');
+}
+else{
+    return redirect()->route('avisoindex')->with('não foi criado', 'mul');
+}
     }
     public function show($id)
 
@@ -52,16 +58,17 @@ class AvisoController extends Controller
     return view('aviso_past.Editar', ['aviso' => $aviso]);
 }
 
-public function update(Request $request, $id)
+public function update(StoreAvisoRequest $request, $id)
 {
-    $validated = $request->validate([
-        'titulo' => 'required|string|max:30',
-        'conteudo' => 'required|string|max:250',
-    ]);
-
     $updated=$this->aviso->where('id_aviso',$id)->update($request->except(['_token','_method']));
 
-    return redirect()->route('avisoindex')->with('editado', 'nn');
+    if($updated){
+        return redirect()->route('avisoindex')->with('editado', 'nn');
+}
+else{
+    return redirect()->route('avisoindex')->withError('nãoeditado', 'nn');
+}
+
 }
 
     public function destroy(string $id)

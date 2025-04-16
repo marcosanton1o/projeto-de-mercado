@@ -23,7 +23,7 @@ class StoreAvisoRequest extends FormRequest
     {
         $rules = [
             'titulo' => ['required', 'string', 'max:255'],
-            'conteudo' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'conteudo' => ['required', 'string', 'max:255'],
         ];
 
         return $rules;
