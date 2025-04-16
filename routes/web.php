@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SugestaoController;
 use App\Http\Controllers\CorridaController;
 use App\Http\Controllers\AvisoController;
+use App\Http\Controllers\LembreteController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -129,7 +130,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/postos', [PostoController::class, 'index'])->name('postoindex');
 
-    Route::get('/postos/{corrida}', [PostoController::class, 'show'])->name('postoshow');
+    Route::get('/postos/{posto}', [PostoController::class, 'show'])->name('postoshow');
 
     Route::get('/posto/create', [PostoController::class, 'create'])->name('postocreate');
 
@@ -139,7 +140,24 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/posto/{post}', [PostoController::class, 'update'])->name('postoupdate');
 
-    Route::delete('/postos/{corrida}', [PostoController::class, 'destroy'])->name('postodelete');
+    Route::delete('/postos/{posto}', [PostoController::class, 'destroy'])->name('postodelete');
+
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/lembretes', [LembreteController::class, 'index'])->name('lembreteindex');
+
+    Route::get('/lembretes/{lembrete}', [LembreteController::class, 'show'])->name('lembreteshow');
+
+    Route::get('/lembrete/create', [LembreteController::class, 'create'])->name('lembretecreate');
+
+    Route::post('/lembretes', [LembreteController::class, 'store'])->name('lembretestore');
+
+    Route::get('/lembrete/{lembrete}/edit', [LembreteController::class, 'edit'])->name('lembreteedit');
+
+    Route::put('/lembrete/{lembret}', [LembreteController::class, 'update'])->name('lembreteupdate');
+
+    Route::delete('/lembretes/{lembrete}', [LembreteController::class, 'destroy'])->name('lembretedelete');
 
 });
 require __DIR__.'/auth.php';

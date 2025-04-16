@@ -1,50 +1,46 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use App\Models\Posto;
-use App\Http\Controllers\UserController;
+use App\Http\Requests\StorePostoRequest;
+use App\Models\User;
 
 class PostoController extends Controller
 {
-public readonly Posto $posto;
+    public readonly Posto $posto;
 
-public function __construct()
-{
-    $this->posto = new Posto();
-}
+    public function __construct()
+    {
+        $this->posto = new Posto();
+    }
 
     public function index()
     {
-    $user = Auth::user();
+        $postos = $this->posto->all();
 
-    $postos = $this->posto->where('id_posto', $user->posto_id_posto)->get();
 
-    return view('postos',['postos' => $postos]);
+return view('postos', [
+    'postos' => $postos,
+]);
+
     }
+
 
     public function store(Request $request)
     {
-$created = $this->posto->create([
-            'id_posto' => 'required|string|max:30',
-            'local_cidade' => 'required|string|max:250',
-            'numero_tel_posto' => 'required|string|max:250',
-            'local_estado' => 'required|string|max:250',
-            'cep' => 'required|string|min:8|max:15',
-        ]);
-
-        Posto::create([
-            'posto_id_posto' => Auth::id(),
+        $created = $this->posto->create([
             'local_cidade' => $request->input('local_cidade'),
             'numero_tel_posto' => $request->input('numero_tel_posto'),
             'cep' => $request->input('cep'),
             'local_estado' => $request->input('local_estado'),
         ]);
 
-        return redirect()->route('postocreate')->with('criado','g');
+        return redirect()->route('postoindex')->with('criado','g');
     }
+
     public function show($id)
 
     {
@@ -53,7 +49,7 @@ $created = $this->posto->create([
 
     public function edit(Posto $posto)
     {
-        return view('sugestoes_past.edit', ['posto' => $posto]);
+        return view('postos', ['posto' => $posto]);
     }
 
     public function update(Request $request, $id)
@@ -66,14 +62,10 @@ $created = $this->posto->create([
             'cep' => 'required|string|min:8|max:15',
         ]);
 
-        $posto = $this->sugestao->where('id_posto', $id)->first();
-        if (!$posto) {
-            return redirect()->back()->withErrors('Posto não encontrada.');
+        $atualizar = $this->posto->where('id_posto', $id)->update($request->except(['_token', '_method']));
+        if ($atualizar) {
+            return redirect()->back()->with('Algo deu errado, verifique a página que está .');
         }
-
-        $posto->update($validated);
-
-        return redirect()->route('postoindex')->with('editado','m');
 
     }
 

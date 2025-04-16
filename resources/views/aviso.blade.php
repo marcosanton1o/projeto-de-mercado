@@ -95,7 +95,7 @@ $cargo = Auth::user()->cargo;
                         @empty
                             <tr class="justify-center bg-gray-100">
                                 <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                                    Nenhuma corrida registrada.
+                                    Nenhum aviso registrada.
                                 </td>
                             </tr>
                         @endforelse

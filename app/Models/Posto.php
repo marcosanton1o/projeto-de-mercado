@@ -27,4 +27,3 @@ class Posto extends Authenticatable
         'cep',
     ];
 }
-

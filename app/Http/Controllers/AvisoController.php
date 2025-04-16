@@ -54,6 +54,11 @@ class AvisoController extends Controller
 
 public function update(Request $request, $id)
 {
+    $validated = $request->validate([
+        'titulo' => 'required|string|max:30',
+        'conteudo' => 'required|string|max:250',
+    ]);
+
     $updated=$this->aviso->where('id_aviso',$id)->update($request->except(['_token','_method']));
 
     return redirect()->route('avisoindex')->with('editado', 'nn');
