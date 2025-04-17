@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\StoreRegisteredRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ $this->user = new User();
     }
 
 
-    public function store(Request $request)
+    public function store(StoreRegisteredRequest $request)
 
     {
     $postoId = Auth::user()->posto_id_posto;
@@ -80,7 +81,7 @@ $this->user = new User();
             }
 
 
-            public function update(Request $request, $id)
+            public function update(StoreRegisteredRequest $request, $id)
 
             {
 

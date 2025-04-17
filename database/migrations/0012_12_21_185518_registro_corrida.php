@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('corrida_user')->nullable();
             $table->string('nome_cliente', 150);
 
-            $table->foreign('corrida_user')->references('id')->on('users');
+            $table->foreign('corrida_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
 
         });

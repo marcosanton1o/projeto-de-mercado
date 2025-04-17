@@ -59,15 +59,8 @@ return view('postos', [
         return view('postos', ['posto' => $posto]);
     }
 
-    public function update(Request $request, $id)
+    public function update(StorePostoRequest $request, $id)
     {
-        $validated = $request->validate([
-            'id_posto' => 'required|string|max:30',
-            'local_cidade' => 'required|string|max:250',
-            'numero_tel_posto' => 'required|string|max:250',
-            'local_estado' => 'required|string|max:250',
-            'cep' => 'required|string|min:8|max:15',
-        ]);
 
         $atualizar = $this->posto->where('id_posto', $id)->update($request->except(['_token', '_method']));
         if ($atualizar) {

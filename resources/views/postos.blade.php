@@ -76,10 +76,73 @@ $cargo = Auth::user()->cargo;
     </x-criado-aviso>
             @endif
     <table class="w-full min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <a href="{{ route('users.create') }}" class="inline-block px-6 py-2 mb-2 text-white bg-sky-800 hover:bg-blue-700 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            Criar Membro
-        </a>
+
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block mb-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                Criar Usuário
+              </button>
+
+            <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+
+                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                Criar Usuário
+                            </h3>
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <form action="{{ route('adminstore') }}" method="post">
+                            @csrf
+
+                        <div class="mt-4 mx-5">
+                            <x-input-label for="name" class="text-white" :value="__('Name')" />
+                            <x-text-input id="name" class="block mt-1  text-gray-700 w-full" type="text" name="name" autofocus autocomplete="name" />
+                            <div class="flex ">
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <div class="red"></div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 mx-5">
+                            <x-input-label for="email" class="text-white" :value="__('Email')" />
+                            <x-text-input id="email" class="block mt-1 text-gray-700 w-full" type="email" name="email" autocomplete="username" />
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+
+                        <div class="mt-4 mx-5">
+                            <x-input-label for="number" class="text-white" :value="__('Número de telefone')" />
+                            <x-text-input id="numero_tel" class="block mt-1 text-gray-700  w-full" type="number" name="numero_tel" autocomplete="username" />
+                            <x-input-error :messages="$errors->get('numero_tel')" class="mt-2" />
+                        </div>
+                        <div class="mt-4 mx-5">
+                            <x-input-label for="number" class="text-white" :value="__('CPF')" />
+                            <x-text-input id="cpf" class="block mt-1  text-gray-700 w-full" type="number" name="cpf" autocomplete="username" />
+                            <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
+                        </div>
+                <div class="mt-4 mx-5">
+                    <x-input-label for="number" class="text-white" :value="__('Placa carro')" />
+                    <x-text-input id="placa_carro" class="block mt-1  text-gray-700 w-full" type="number" name="placa_carro" autocomplete="username" />
+                    <x-input-error :messages="$errors->get('placa_carro')" class="mt-2" />
+                </div>
+                <div class="mt-4  mx-5">
+                    <x-input-label for="number" class="text-white" :value="__('Data de nascimento')" />
+                    <input type="date" id="data_nascimento" placeholder="John Doe" class="text-gray-700" name="data_nascimento"  autocomplete="username" class="block mt-1 w-full" />
+                    <x-input-error :messages="$errors->get('data_nascimento')" class="mt-2" />
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="px-4 py-2 my-3 text-white bg-blue-600 rounded">
+                        Criar membro
+                    </button>
+                </div>
+                    </form>
+                    </div>
+                </div>
             <tr>
                 <th scope="col" class="px-6 py-3">
                     ID:
@@ -104,25 +167,28 @@ $cargo = Auth::user()->cargo;
                 </th>
             </tr>
         </thead>
+
         <tbody>
 @foreach ($users as $user)
             <tr class="bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ $user->id }}
                 </th>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                     {{ $user->name }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                     {{ $user->email }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                     {{ $user->numero_tel }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                     {{ $user->data_nascimento }}
                 </td>
-                <td class="px-6 py-4">
+
+
+                <td>
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-yellow-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-blue-800" type="button">
                         Editar
                         </button>
@@ -134,7 +200,7 @@ $cargo = Auth::user()->cargo;
                                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                             Editar o posto
                                         </h3>
-                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="popup-modal">
                                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                             </svg>
@@ -147,7 +213,7 @@ $cargo = Auth::user()->cargo;
 
                                     <div class="mt-4 mx-5">
                                         <x-input-label for="name" class="text-white" :value="__('Name')" />
-                                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $user->name }}" required autofocus autocomplete="name" />
+                                        <x-text-input id="name" class="block mt-1  text-gray-700 w-full" type="text" name="name" value="{{ $user->name }}" required autofocus autocomplete="name" />
                                         <div class="flex ">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         <div class="red"></div>
@@ -156,33 +222,33 @@ $cargo = Auth::user()->cargo;
 
                                     <div class="mt-4 mx-5">
                                         <x-input-label for="email" class="text-white" :value="__('Email')" />
-                                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ $user->email }}" required autocomplete="username" />
+                                        <x-text-input id="email" class="block mt-1 text-gray-700 w-full" type="email" name="email" value="{{ $user->email }}"  autocomplete="username" />
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
 
                                     <div class="mt-4 mx-5">
                                         <x-input-label for="number" class="text-white" :value="__('Número de telefone')" />
-                                        <x-text-input id="numero_tel" class="block mt-1 w-full" type="number" name="numero_tel" value="{{ $user->numero_tel }}" required autocomplete="username" />
+                                        <x-text-input id="numero_tel" class="block mt-1 text-gray-700  w-full" type="number" name="numero_tel" value="{{ $user->numero_tel }}"  autocomplete="username" />
                                         <x-input-error :messages="$errors->get('numero_tel')" class="mt-2" />
                                     </div>
                                     <div class="mt-4 mx-5">
                                         <x-input-label for="number" class="text-white" :value="__('CPF')" />
-                                        <x-text-input id="cpf" class="block mt-1 w-full" type="number" name="cpf" value="{{ $user->cpf }}" required autocomplete="username" />
+                                        <x-text-input id="cpf" class="block mt-1  text-gray-700 w-full" type="number" name="cpf" value="{{ $user->cpf }}"  autocomplete="username" />
                                         <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
                                     </div>
                             <div class="mt-4 mx-5">
                                 <x-input-label for="number" class="text-white" :value="__('Placa carro')" />
-                                <x-text-input id="placa_carro" class="block mt-1 w-full" type="number" name="placa_carro" value="{{ $user->placa_carro }}" required autocomplete="username" />
+                                <x-text-input id="placa_carro" class="block mt-1  text-gray-700 w-full" type="number" name="placa_carro" value="{{ $user->placa_carro }}"  autocomplete="username" />
                                 <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
                             </div>
                             <div class="mt-4  mx-5">
                                 <x-input-label for="number" class="text-white" :value="__('Data de nascimento')" />
-                                <input type="date" id="data_nascimento" placeholder="John Doe" name="data_nascimento" value="{{ $user->data_nascimento }}" required autocomplete="username" class="block mt-1 w-full" />
+                                <input type="date" id="data_nascimento" placeholder="John Doe" class="text-gray-700" name="data_nascimento" value="{{ $user->data_nascimento }}"  autocomplete="username" class="block mt-1 w-full" />
                                 <x-input-error :messages="$errors->get('data_nascimento')" class="mt-2" />
                             </div>
                                         <div class="flex justify-center">
                                         <button type="submit" class="my-3 mx-3 text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                         Editar posto
+                                         Editar Usuário
                                         </button>
 
                                     </form>
@@ -192,18 +258,17 @@ $cargo = Auth::user()->cargo;
                                 </div>
                             </div>
                         </div>
-                </td>
+                    </td>
 
                 <td class="px-6 py-4">
-
-                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-pink-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-blue-800" type="button">
+                    <button data-modal-target="popup" data-modal-toggle="popup" class="block text-white bg-pink-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-blue-800" type="button">
                         Apagar
                         </button>
 
-                        <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div id="popup" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-md max-h-full">
                                 <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-                                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                         </svg>
@@ -215,12 +280,12 @@ $cargo = Auth::user()->cargo;
                                         </svg>
                                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Tem certeza que quer apagar?</h3>
                                         <div class="flex justify-center">
-                                            <form action="{{ route('admin.users.delete',['user' => $user->id])}}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="px-4 py-2 text-white bg-red-600 rounded ">Apagar</button>
-                                            </form>
-                                        <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
+
+            <form action="{{ route('admin.users.delete',['user' => $user->id])}}" method="post">
+                @csrf
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="px-4 py-2 text-white bg-red-600 rounded ">Apagar</button>
+            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +293,6 @@ $cargo = Auth::user()->cargo;
                         </div>
                 </td>
             </tr>
-
 
 @endforeach
         </tbody>
@@ -311,17 +375,18 @@ $cargo = Auth::user()->cargo;
                 </div>
             </div>
         </div>
+
         <tbody>
             @foreach ($postos as $posto)
             <tr class="bg-gray-100 justify-center border-b dark:bg-gray-800 dark:border-gray-700">
 
-                        <td  class="px-6 py-4">
+                        <td  class="px-6 py-4 text-white">
                             {{ $posto->local_cidade }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-white">
                             {{ $posto->numero_tel_posto }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-white">
                             {{ $posto->local_estado }}
                         </td>
                         <td  class="px-6 py-4 text-white">
@@ -339,7 +404,7 @@ $cargo = Auth::user()->cargo;
                                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                                 Editar o posto
                                             </h3>
-                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="popup-modal ">
                                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                 </svg>
@@ -386,14 +451,14 @@ $cargo = Auth::user()->cargo;
 </td>
                             <td class="px-6 py-4">
 
-                                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-pink-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-blue-800" type="button">
+                                <button data-modal-target="popup-mod" data-modal-toggle="popup-mod" class="block text-white bg-pink-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-blue-800" type="button">
                                     Apagar
                                     </button>
 
-                                    <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div id="popup-mod" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative p-4 w-full max-w-md max-h-full">
                                             <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-                                                <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                                                <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-mod">
                                                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                     </svg>
@@ -410,7 +475,6 @@ $cargo = Auth::user()->cargo;
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <button type="submit" data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">Apagar</button>
                                                     </form>
-                                                    <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
                                                     </div>
                                                 </div>
                                             </div>
