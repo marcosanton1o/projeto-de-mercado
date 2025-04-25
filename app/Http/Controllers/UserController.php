@@ -24,7 +24,9 @@ $this->user = new User();
 
     $users = User::where('posto_id_posto', $postoId)->get();
 
-    return view('dashboard', ['users' => $users]);
+    $quantidadeMembro = User::where('posto_id_posto', $postoId)->count();
+
+    return view('dashboard', ['users' => $users], compact('quantidadeMembro'));
     }
 
 
