@@ -15,7 +15,7 @@
     <body class="font-sans text-gray-900 antialiased justify-center">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white">
 
-            <div class="w-full flex-col sm:max-w-md mt-6 px-6 py-4 bg-yellow-400 shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full flex-col sm:max-w-md mt-6 px-6 py-4 bg-gray-900 shadow-md overflow-hidden sm:rounded-lg">
                 <div class="flex justify-center">
                         <x-application-logo class="rounded-full w-20 h-20 fill-current text-gray-500" />
                 </div>

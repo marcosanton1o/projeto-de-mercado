@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\StoreSugestaoRequest;
 
 class SugestaoController extends Controller
 {
@@ -58,14 +57,21 @@ $created = $this->sugestao->create([
         return view('sugestoes_past.Editar', ['sugestao' => $sugestao]);
     }
 
-    public function update(StoreSugestaoRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $sugestao = $this->sugestao->where('id_sugestao', $id)->update($request->except(['_token', '_method']));
-        if ($sugestao) {
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:30',
+            'descricao' => 'required|string|max:250',
+        ]);
 
-            return redirect()->route('sugestaoindex')->with('editado','m');
+        $sugestao = $this->sugestao->where('id_sugestao', $id)->first();
+        if (!$sugestao) {
+            return redirect()->back()->withErrors('Sugestão não encontrada.');
         }
 
+        $sugestao->update($validated);
+
+        return redirect()->route('sugestaoindex')->with('editado','m');
 
     }
 

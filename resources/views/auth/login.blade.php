@@ -6,7 +6,7 @@
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -15,8 +15,7 @@
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                            name="password"/>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -28,7 +27,7 @@
             </label>
         </div>
         <div class="flex items-center justify-between mt-4">
-            <a class="ms-3" href="{{ url('/register') }}">
+            <a class="ms-3 bg-white px-2 py-1 rounded" href="{{ url('/register') }}">
                 {{ __('Registrar') }}
             </a>
             <x-primary-button class="ms-3">

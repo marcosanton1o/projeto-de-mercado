@@ -8,11 +8,11 @@ use App\Http\Middleware\Usermiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin_postController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SugestaoController;
 use App\Http\Controllers\CorridaController;
 use App\Http\Controllers\AvisoController;
-use App\Http\Controllers\LembreteController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -57,7 +57,7 @@ Route::get('/admin_post', function () {
 
         Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 
-        Route::post('/admin', [UserController::class, 'store'])->name('adminstore');
+        Route::post('/users', [UserController::class, 'store'])->name('adminstore');
 
         Route::get('/admin/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
 
@@ -144,20 +144,4 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/lembretes', [LembreteController::class, 'index'])->name('lembreteindex');
-
-    Route::get('/lembretes/{lembrete}', [LembreteController::class, 'show'])->name('lembreteshow');
-
-    Route::get('/lembrete/create', [LembreteController::class, 'create'])->name('lembretecreate');
-
-    Route::post('/lembretes', [LembreteController::class, 'store'])->name('lembretestore');
-
-    Route::get('/lembrete/{lembrete}/edit', [LembreteController::class, 'edit'])->name('lembreteedit');
-
-    Route::put('/lembrete/{lembret}', [LembreteController::class, 'update'])->name('lembreteupdate');
-
-    Route::delete('/lembretes/{lembrete}', [LembreteController::class, 'destroy'])->name('lembretedelete');
-
-});
 require __DIR__.'/auth.php';

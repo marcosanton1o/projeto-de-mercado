@@ -36,7 +36,7 @@ return view('postos', [
     }
 
 
-    public function store(Request $request)
+    public function store(StorePostoRequest $request)
     {
         $created = $this->posto->create([
             'local_cidade' => $request->input('local_cidade'),
@@ -59,7 +59,7 @@ return view('postos', [
         return view('postos', ['posto' => $posto]);
     }
 
-    public function update(StorePostoRequest $request, $id)
+    public function update(UpdatePostoRequest $request, $id)
     {
 
         $atualizar = $this->posto->where('id_posto', $id)->update($request->except(['_token', '_method']));
@@ -76,4 +76,3 @@ return view('postos', [
     return redirect()->route('postoindex')->with('apagado','apagado');
     }
 }
-

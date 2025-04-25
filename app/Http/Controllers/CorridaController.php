@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Corrida;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
-use App\Http\Requests\StoreCorridaRequest;
 
 class CorridaController extends Controller
 {
@@ -30,13 +30,13 @@ class CorridaController extends Controller
     return view('corridas_past.Criar');
 
     }
-    public function store(StoreCorridaRequest $request)
+    public function store(Request $request)
     {
-        Corrida::create([
+        $created = $this->corrida->create([
             'corrida_user' => Auth::id(),
-            'nome_cliente' => $request->input('nome_cliente'),
-            'data' => $request->input('data'),
             'preco' => $request->input('preco'),
+            'data' => $request->input('data'),
+            'nome_cliente' => $request->input('nome_cliente'),
         ]);
 
         return redirect()->route('corridaindex')->with('criado', 'im');
@@ -54,7 +54,6 @@ class CorridaController extends Controller
 
 public function update(Request $request, $id)
 {
-
     $updated=$this->corrida->where('id_registro_corrida',$id)->update($request->except(['_token','_method']));
 
     return redirect()->route('corridaindex')->with('editado', 'm');
